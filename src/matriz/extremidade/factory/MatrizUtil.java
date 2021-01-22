@@ -53,7 +53,7 @@ public class MatrizUtil {
 	private String retornaValorComEspacos(Integer valor) {
 		return retornaValorComEspacos(valor.toString());
 	}
-	
+
 	private String retornaValorComEspacos(String valorStr) {
 		int total = getTamanhoValorTotal();
 		int tamanhoValor = valorStr.length();
@@ -63,7 +63,7 @@ public class MatrizUtil {
 		}
 		return valorStr;
 	}
-	
+
 	public void somar() {
 		somar(matrizes.get(0));
 	}
@@ -87,27 +87,39 @@ public class MatrizUtil {
 		}
 
 		// Soma a Ultima Linha (não contando o ultimo registro da ultima coluna)
-		int indexUltimaLinha = matriz.getLinhas() - 1;
-		Integer ultimaLinha;
-		for (ultimaLinha = (indexUltimaColuna - 1); ultimaLinha > -1; ultimaLinha--) {
-			matrizInt[indexUltimaLinha][ultimaLinha] = valorAtual;
-			valorAtual += somador;
+		// Mas só soma a última linha se a Matriz atual tiver mais de uma linha
+		// Pois se for uma única linha ela é primeira e última, logo vai sobrescrever o
+		// somatório da outra
+		if (matriz.getLinhas() > 1) {
+			int indexUltimaLinha = matriz.getLinhas() - 1;
+			Integer ultimaLinha;
+			for (ultimaLinha = (indexUltimaColuna - 1); ultimaLinha > -1; ultimaLinha--) {
+				matrizInt[indexUltimaLinha][ultimaLinha] = valorAtual;
+				valorAtual += somador;
+			}
 		}
 
 		// Soma a Primeira Coluna (não contando o primeiro registro da ultima linha)
-		Integer primeiraColuna;
-		for (primeiraColuna = (matriz.getLinhas() - 2); primeiraColuna > 0; primeiraColuna--) {
-			matrizInt[primeiraColuna][0] = valorAtual;
-			valorAtual += somador;
+		// Mas só soma a primeira coluna se a Matriz atual tiver mais de uma coluna
+		// Pois se for uma única coluna ela é primeira e última, logo vai sobrescrever o
+		// somatório da outra
+		if (matriz.getColunas() > 1) {
+			Integer primeiraColuna;
+			for (primeiraColuna = (matriz.getLinhas() - 2); primeiraColuna > 0; primeiraColuna--) {
+				matrizInt[primeiraColuna][0] = valorAtual;
+				valorAtual += somador;
+			}
 		}
 
 		boolean temMatrizInterna = matriz.getLinhas() > 2;
 		if (temMatrizInterna) {
 			int linhaMatrizInterna = matriz.getLinhas() - 2;
 			int colunaMatrizInterna = matriz.getColunas() - 2;
-			Matriz interna = new Matriz(linhaMatrizInterna, colunaMatrizInterna);
-			matrizes.add(interna);
-			somar(interna);
+			if (linhaMatrizInterna > 0 && colunaMatrizInterna > 0) {
+				Matriz interna = new Matriz(linhaMatrizInterna, colunaMatrizInterna);
+				matrizes.add(interna);
+				somar(interna);
+			}
 		}
 	}
 
