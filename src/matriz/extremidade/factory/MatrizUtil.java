@@ -72,16 +72,14 @@ public class MatrizUtil {
 		int[][] matrizInt = matriz.getMatriz();
 
 		// Soma a Primeira Linha até o final
-		Integer primeiraLinha;
-		for (primeiraLinha = 0; primeiraLinha < matriz.getColunas(); primeiraLinha++) {
+		for (int primeiraLinha = 0; primeiraLinha < matriz.getColunas(); primeiraLinha++) {
 			matrizInt[0][primeiraLinha] = valorAtual;
 			valorAtual += somador;
 		}
 
 		// Soma a Ultima Coluna (não contando o ultimo registro da primeira linha)
 		int indexUltimaColuna = matriz.getColunas() - 1;
-		Integer ultimaColuna;
-		for (ultimaColuna = 1; ultimaColuna < matriz.getLinhas(); ultimaColuna++) {
+		for (int ultimaColuna = 1; ultimaColuna < matriz.getLinhas(); ultimaColuna++) {
 			matrizInt[ultimaColuna][indexUltimaColuna] = valorAtual;
 			valorAtual += somador;
 		}
@@ -92,8 +90,7 @@ public class MatrizUtil {
 		// somatório da outra
 		if (matriz.getLinhas() > 1) {
 			int indexUltimaLinha = matriz.getLinhas() - 1;
-			Integer ultimaLinha;
-			for (ultimaLinha = (indexUltimaColuna - 1); ultimaLinha > -1; ultimaLinha--) {
+			for (int ultimaLinha = (indexUltimaColuna - 1); ultimaLinha > -1; ultimaLinha--) {
 				matrizInt[indexUltimaLinha][ultimaLinha] = valorAtual;
 				valorAtual += somador;
 			}
@@ -104,8 +101,7 @@ public class MatrizUtil {
 		// Pois se for uma única coluna ela é primeira e última, logo vai sobrescrever o
 		// somatório da outra
 		if (matriz.getColunas() > 1) {
-			Integer primeiraColuna;
-			for (primeiraColuna = (matriz.getLinhas() - 2); primeiraColuna > 0; primeiraColuna--) {
+			for (int primeiraColuna = (matriz.getLinhas() - 2); primeiraColuna > 0; primeiraColuna--) {
 				matrizInt[primeiraColuna][0] = valorAtual;
 				valorAtual += somador;
 			}
